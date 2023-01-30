@@ -5,6 +5,8 @@ import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 
+const CONTACTS_KEY = 'contacts';
+
 export class App extends Component {
   state = {
     contacts: [
@@ -45,6 +47,19 @@ export class App extends Component {
     this.state.contacts.filter(({ name }) =>
       name.toLowerCase().includes(this.state.filter)
     );
+
+  componentDidMount = () => {
+    const parsedContacts = JSON.parse(localStorage.getItem(CONTACTS_KEY));
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+  };
+
+  componentDidUpdate = (_, prevState) => {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem(CONTACTS_KEY, JSON.stringify(this.state.contacts));
+    }
+  };
 
   render() {
     const filteredContacts = this.FilterContacts();
