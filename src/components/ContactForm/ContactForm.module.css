@@ -1,0 +1,8 @@
+.contactForm {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  row-gap: 10px;
+  margin: 20px auto 0 auto;
+}
